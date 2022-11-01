@@ -1,0 +1,27 @@
+CREATE TABLE StudentTable (
+    id TEXT NOT NULL,
+    password TEXT NOT NULL,
+    studentId TEXT NOT NULL,
+    department TEXT NOT NULL,
+    name TEXT NOT NULL,
+    isAttending TEXT NOT NULL,
+    session TEXT,
+    qrInfo TEXT
+);
+
+CREATE TABLE SeatTable (
+    id TEXT NOT NULL,
+    place TEXT NOT NULL,
+    canReserve INTEGER AS Boolean DEFAULT 0 NOT NULL,
+    isFavorite INTEGER AS Boolean DEFAULT 0 NOT NULL
+);
+
+CREATE TABLE BookTable (
+    author TEXT NOT NULL,
+    name TEXT NOT NULL,
+    publish TEXT NOT NULL,
+    isbn TEXT NOT NULL,
+    language TEXT,
+    picture TEXT,
+    isFavorite INTEGER AS Boolean DEFAULT 0 NOT NULL
+);
