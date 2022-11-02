@@ -21,28 +21,28 @@ import org.koin.dsl.module
 val libraryModule = module {
     single<StudentRepository> {
         StudentRepositoryImpl(
-            get(qualifier = named("local")),
-            get(qualifier = named("remote"))
+            get(qualifier = named("StudentLocal")),
+            get(qualifier = named("StudentRemote"))
         )
     }
     single<SeatRepository> {
         SeatRepositoryImpl(
-            get(qualifier = named("local")),
-            get(qualifier = named("remote"))
+            get(qualifier = named("SeatLocal")),
+            get(qualifier = named("SeatRemote"))
         )
     }
     single<BookRepository> {
         BookRepositoryImpl(
-            get(qualifier = named("local")),
-            get(qualifier = named("remote"))
+            get(qualifier = named("BookLocal")),
+            get(qualifier = named("BookRemote"))
         )
     }
-    factory<StudentDataSource>(named("local")) { StudentLocalDataSource(get()) }
-    factory<StudentDataSource>(named("remote")) { StudentRemoteDataSource(get()) }
-    factory<SeatDataSource>(named("local")) { SeatLocalDataSource(get()) }
-    factory<SeatDataSource>(named("remote")) { SeatRemoteDataSource(get()) }
-    factory<BookDataSource>(named("local")) { BookLocalDataSource(get()) }
-    factory<BookDataSource>(named("remote")) { BookRemoteDataSource(get()) }
+    factory<StudentDataSource>(named("StudentLocal")) { StudentLocalDataSource(get()) }
+    factory<StudentDataSource>(named("StudentRemote")) { StudentRemoteDataSource(get()) }
+    factory<SeatDataSource>(named("SeatLocal")) { SeatLocalDataSource(get()) }
+    factory<SeatDataSource>(named("SeatRemote")) { SeatRemoteDataSource(get()) }
+    factory<BookDataSource>(named("BookLocal")) { BookLocalDataSource(get()) }
+    factory<BookDataSource>(named("BookRemote")) { BookRemoteDataSource(get()) }
 
     single<Database> { Database(get()) }
     factory<StudentApi> { StudentApi() }

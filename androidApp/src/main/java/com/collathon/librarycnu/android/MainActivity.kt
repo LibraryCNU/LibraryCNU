@@ -93,7 +93,7 @@ class MainActivity : ComponentActivity() {
 
         val librarySdk: SDKForAndroid by inject()
 
-        Log.d(librarySdk.toString(), "debug")
+        Log.d(librarySdk.cancelSeatUseCase().toString(), "debug")
 
     }
 }

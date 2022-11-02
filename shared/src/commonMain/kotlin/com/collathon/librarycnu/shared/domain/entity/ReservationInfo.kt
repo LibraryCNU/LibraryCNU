@@ -1,8 +1,10 @@
 package com.collathon.librarycnu.shared.domain.entity
 
+import kotlinx.datetime.LocalTime
+
 data class ReservationInfo (  // @Todo fix this.
     val id: Int,
     val place: String,
-    val assignedTime: Long,
-    var leftTime: Int,
+    val startTime: LocalTime,
+    var endTime: LocalTime,
 )

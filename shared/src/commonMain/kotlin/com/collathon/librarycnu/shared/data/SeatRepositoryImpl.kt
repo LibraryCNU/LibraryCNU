@@ -6,8 +6,8 @@ import com.collathon.librarycnu.shared.domain.entity.Seat
 import com.collathon.librarycnu.shared.domain.repository.SeatRepository
 
 class SeatRepositoryImpl(
-    private val localSeatDataSource: SeatRepository,
-    private val remoteSeatDataSource : SeatRepository
+    private val localSeatDataSource: SeatDataSource,
+    private val remoteSeatDataSource : SeatDataSource
     ) : SeatRepository {
     override suspend fun fetchAllSeatInfo(): List<Seat> {
         TODO("Not yet implemented")
