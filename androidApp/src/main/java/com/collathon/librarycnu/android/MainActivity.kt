@@ -1,6 +1,7 @@
 package com.collathon.librarycnu.android
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -17,6 +18,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.collathon.librarycnu.Greeting
+import com.collathon.librarycnu.shared.SDKForAndroid
+import org.koin.android.ext.android.get
+import org.koin.android.ext.android.inject
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
+import org.koin.dsl.module
 
 @Composable
 fun MyApplicationTheme(
@@ -57,6 +65,10 @@ fun MyApplicationTheme(
     )
 }
 
+val SDKModule = module {
+    single<SDKForAndroid> { SDKForAndroid(get()) }
+}
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +82,19 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+
+        startKoin {
+            androidLogger()
+            androidContext(this@MainActivity)
+            modules(SDKModule)
+        }
+
+        Log.d("Hello World!", "debug")
+
+        val librarySdk: SDKForAndroid by inject()
+
+        Log.d(librarySdk.toString(), "debug")
+
     }
 }
 

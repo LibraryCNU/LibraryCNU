@@ -1,10 +1,14 @@
 package com.collathon.librarycnu.shared.data
 
+import com.collathon.librarycnu.shared.data.network.SeatRemoteDataSource
 import com.collathon.librarycnu.shared.domain.entity.ReservationInfo
 import com.collathon.librarycnu.shared.domain.entity.Seat
 import com.collathon.librarycnu.shared.domain.repository.SeatRepository
 
-class SeatRepositoryImpl : SeatRepository {
+class SeatRepositoryImpl(
+    private val localSeatDataSource: SeatRepository,
+    private val remoteSeatDataSource : SeatRepository
+    ) : SeatRepository {
     override suspend fun fetchAllSeatInfo(): List<Seat> {
         TODO("Not yet implemented")
     }
