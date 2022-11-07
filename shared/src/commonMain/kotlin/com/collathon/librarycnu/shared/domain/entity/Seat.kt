@@ -11,4 +11,3 @@ data class Seat (
     val canReserve: Boolean,
     val isFavorite: Boolean,
 )
-
