@@ -1,3 +1,4 @@
+
 package com.collathon.librarycnu.shared.domain.entity
 
 import kotlinx.datetime.LocalDateTime

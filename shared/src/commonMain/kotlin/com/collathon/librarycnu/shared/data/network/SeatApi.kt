@@ -1,3 +1,4 @@
+
 package com.collathon.librarycnu.shared.data.network
 
 import com.collathon.librarycnu.shared.data.model.SeatModel
