@@ -16,8 +16,8 @@ import kotlinx.serialization.json.JsonObject
 
 class StudentApi {
     // @TODO write your HOST, PORT
-    private val HOST: String = "122.32.102.102"
-    private val PORT: String = "46577"
+    private val HOST: String = ""
+    private val PORT: String = ""
 
     private val httpClient = HttpClient(CIO) {
         install(ContentNegotiation) {
@@ -38,8 +38,6 @@ class StudentApi {
             contentType(ContentType.Application.Json)
             setBody(RequestBody(id = id))
         }
-
-
 
         return response.body()
     }

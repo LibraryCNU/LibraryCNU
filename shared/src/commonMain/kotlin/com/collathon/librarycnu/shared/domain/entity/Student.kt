@@ -9,5 +9,5 @@ data class Student (
     val name: String,
     val isAttending: String,
 //    val session: String?,
-    val qrInfo: String?,
+    val qr: String?,
 )
