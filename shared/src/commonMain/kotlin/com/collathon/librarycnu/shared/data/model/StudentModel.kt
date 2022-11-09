@@ -9,16 +9,16 @@ data class StudentModel (  // @Todo fix serial name.
     val id: String,
     @SerialName("password")
     val password: String,
-    @SerialName("studentId")
+    @SerialName("student_id")
     val studentId: String,
     @SerialName("department")
     val department: String,
     @SerialName("name")
     val name: String,
-    @SerialName("isAttending")
+    @SerialName("is_attending")
     val isAttending: String,
-    @SerialName("session")
-    val session: String,
-    @SerialName("qrInfo")
+//    @SerialName("session")
+//    val session: String,
+    @SerialName("qr")
     val qrInfo: String,
 )

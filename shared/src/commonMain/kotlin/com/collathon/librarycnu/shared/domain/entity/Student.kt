@@ -7,6 +7,6 @@ data class Student (
     val department: String,
     val name: String,
     val isAttending: String,
-    val session: String?,
+//    val session: String?,
     val qrInfo: String?,
 )

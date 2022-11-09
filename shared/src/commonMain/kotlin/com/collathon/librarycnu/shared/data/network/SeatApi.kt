@@ -1,5 +1,76 @@
 package com.collathon.librarycnu.shared.data.network
 
-class SeatApi {
+import com.collathon.librarycnu.shared.data.model.SeatModel
+import com.collathon.librarycnu.shared.data.model.SeatResponseModel
+import io.ktor.client.*
+import io.ktor.client.call.*
+import io.ktor.client.engine.cio.*
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.request.*
+import io.ktor.client.statement.*
+import io.ktor.http.*
+import io.ktor.serialization.kotlinx.json.*
+import kotlinx.datetime.toLocalDateTime
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 
+class SeatApi {
+    // @TODO write your HOST, PORT
+    private val HOST: String = "122.32.102.102"
+    private val PORT: String = "46577"
+
+    private val httpClient = HttpClient(CIO) {
+        install(ContentNegotiation) {
+            json(Json {
+                prettyPrint = true
+                isLenient = true
+            })
+        }
+    }
+
+    @Serializable
+    data class RequestBody (
+        val id: Int?,
+        val place: String?
+    )
+
+    suspend fun getAllSeatInfo(): List<SeatModel> {
+        val response: HttpResponse = httpClient.get("http://$HOST:$PORT/get_all_seat_info")
+
+        val responseSeatList = response.body<List<SeatResponseModel>>()
+        val seatModelList: ArrayList<SeatModel> = ArrayList()
+
+        for (seat in responseSeatList) {
+            seatModelList.add(SeatModel(
+                seat.id,
+                seat.place,
+                seat.plugExistence,
+                seat.startTime.toLocalDateTime(),
+                seat.endTime.toLocalDateTime(),
+                seat.canReserve,
+                seat.isFavorite
+            ))
+        }
+
+        return seatModelList.toList()
+    }
+
+    suspend fun getSeatInfo(id: Int): SeatModel {
+        val response: HttpResponse = httpClient.post("http://$HOST:$PORT/get_seat_info") {
+            contentType(ContentType.Application.Json)
+            setBody(RequestBody(id = id, place = null))
+        }
+
+        val responseSeat: SeatResponseModel = response.body()
+
+        return SeatModel(
+            responseSeat.id,
+            responseSeat.place,
+            responseSeat.plugExistence,
+            responseSeat.startTime.toLocalDateTime(),
+            responseSeat.endTime.toLocalDateTime(),
+            responseSeat.canReserve,
+            responseSeat.isFavorite
+        )
+    }
 }

@@ -17,6 +17,6 @@ data class BookModel (  // @Todo fix serial name.
     val language: String?,
     @SerialName("picture")
     val picture: String?,  // url
-    @SerialName("isFavorite")
+    @SerialName("is_favorite")
     val isFavorite: Boolean,
 )
