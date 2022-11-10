@@ -58,7 +58,7 @@ fun MainApp(
                 HomeScreen()
             }
             composable(LibScreens.ReserveSeat.title) {
-                ()
+
             }
             composable(LibScreens.BookService.title) {
                 HomeScreen()
