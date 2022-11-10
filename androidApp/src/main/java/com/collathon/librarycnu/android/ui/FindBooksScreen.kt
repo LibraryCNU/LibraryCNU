@@ -1,4 +1,4 @@
-package com.collathon.librarycnu.android.ui.components
+package com.collathon.librarycnu.android.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
