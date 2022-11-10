@@ -2,7 +2,6 @@ package com.collathon.librarycnu.android.ui
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -59,7 +58,7 @@ fun BookServiceScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(modifier = Modifier
-            .height(350.dp)
+            .height(300.dp)
         ) {
             BackgroundGradation(bookState)
             BookPreView(bookState, boxModifier = Modifier
@@ -118,7 +117,7 @@ fun BookPreView(
             painter = bookList[bookListState.value],
             contentDescription = "learning_javascript",
             modifier = Modifier
-                .size(250.dp)
+                .size(200.dp)
                 .align(Alignment.BottomCenter)
                 .swipeable(
                     state = swipeableState,
