@@ -50,10 +50,12 @@ fun BookServiceScreen(
     horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally
 
 ) {
+    val scrollState = rememberScrollState()
     val bookState = remember { mutableStateOf(BookServiceScreen.NewBooks) }
     Column(modifier = Modifier
         .fillMaxSize()
-        .background(Color(0xFFE7EAF0)),
+        .background(Color(0xFFE7EAF0))
+        .verticalScroll(scrollState),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(modifier = Modifier
@@ -65,6 +67,7 @@ fun BookServiceScreen(
         }
         FindBookButton()
         CheckoutService()
+        Spacer(modifier = Modifier.height(50.dp))
     }
 }
 
@@ -300,7 +303,7 @@ fun BookNavButton(
 ) {
     val alpha = if (bookState.value == bookServiceScreen) 0.3F else 0F
 
-    Button(modifier = Modifier.height(28.dp),
+    Button(modifier = Modifier.height(32.dp),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = Color.White.copy(
                 alpha = alpha,
@@ -311,6 +314,6 @@ fun BookNavButton(
         onClick = {
             bookState.value = bookServiceScreen
         }) {
-        Text(text = text, color = Color.White, fontSize = 10.sp)
+        Text(text = text, color = Color.White, fontSize = 16.sp)
     }
 }
