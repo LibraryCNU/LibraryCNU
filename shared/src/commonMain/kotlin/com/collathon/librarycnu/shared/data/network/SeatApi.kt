@@ -20,8 +20,8 @@ import kotlinx.serialization.json.Json
 
 class SeatApi {
     // @TODO write your HOST, PORT
-    private val HOST: String = "122.32.102.102"
-    private val PORT: String = "46577"
+    private val HOST: String = ""
+    private val PORT: String = ""
 
     private val httpClient = HttpClient(CIO) {
         install(ContentNegotiation) {
