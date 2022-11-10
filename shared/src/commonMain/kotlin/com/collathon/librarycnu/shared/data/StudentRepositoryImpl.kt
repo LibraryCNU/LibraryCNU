@@ -15,8 +15,17 @@ class StudentRepositoryImpl(
         TODO("Not yet implemented")
     }
 
-    override suspend fun fetchStudentInfo(session: String): List<Student> {
-        TODO("Not yet implemented")
+    override suspend fun fetchStudentInfo(id: String): Student {
+        val studentModel = remoteStudentDataSource.fetchStudentInfo(id = id)
+        return Student(
+            studentModel.id,
+            studentModel.password,
+            studentModel.studentId,
+            studentModel.department,
+            studentModel.name,
+            studentModel.isAttending,
+            studentModel.qr
+        )
     }
 
 }
