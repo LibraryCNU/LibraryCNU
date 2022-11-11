@@ -5,7 +5,6 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -56,6 +55,17 @@ fun TitleNarrowText(contents : String) {
     )
 }
 
+@Composable
+fun BlockTitleText(contents : String) {
+    Text(
+        contents,
+        fontSize = 17.sp,
+        fontWeight = FontWeight.Bold,
+        color = Color.Black,
+        textAlign = TextAlign.Center,
+
+    )
+}
 
 @Composable
 fun SubTitleText(contents : String, color : Color) {
@@ -67,7 +77,6 @@ fun SubTitleText(contents : String, color : Color) {
         letterSpacing = -0.3.sp
     )
 }
-
 
 /* Home */
 
