@@ -13,6 +13,18 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.collathon.librarycnu.Greeting
+import com.collathon.librarycnu.android.ui.components.ProgressBarAnimated
+import com.collathon.librarycnu.shared.SDKForAndroid
+import org.koin.android.ext.android.get
+import org.koin.android.ext.android.inject
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
+import org.koin.dsl.module
 
 @Composable
 fun MyApplicationTheme(
@@ -53,12 +65,12 @@ fun MyApplicationTheme(
     )
 }
 
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MainApp()
         }
-
     }
 }

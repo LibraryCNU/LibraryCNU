@@ -21,7 +21,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.collathon.librarycnu.android.ui.HomeScreen
-
+import com.collathon.librarycnu.android.ui.ReserveSeatScreen
+import com.collathon.librarycnu.android.ui.MyLibraryScreen
+import com.collathon.librarycnu.android.ui.RenewBooksScreen
+import com.collathon.librarycnu.android.ui.BookServiceScreen
+import com.collathon.librarycnu.android.ui.FindBooksScreen
 
 
 
@@ -52,30 +56,37 @@ fun MainApp(
         ) {
             // todo : fill the composable
             composable(LibScreens.Home.title) {
-                HomeScreen()
+                HomeScreen (navController = navController)
             }
             composable(LibScreens.ReserveSeat.title) {
-                HomeScreen()
+                ReserveSeatScreen(
+                    //navController = navController
+                )
             }
             composable(LibScreens.BookService.title) {
-                HomeScreen()
+                BookServiceScreen(
+                    //navController = navController
+                )
             }
             composable(LibScreens.RenewBooks.title) {
-                HomeScreen()
+                RenewBooksScreen(
+                    //navController = navController
+                )
             }
             composable(LibScreens.FindBooks.title) {
-                HomeScreen()
+                FindBooksScreen(
+                    //navController = navController
+                )
             }
             composable(LibScreens.MyLibrary.title) {
-                HomeScreen()
+                MyLibraryScreen(
+                    //navController = navController
+                )
             }
 
         }
-        
     }
 }
-
-
 
 @Composable
 fun MyTopBar(navController: NavHostController) {

@@ -1,6 +1,9 @@
 
 package com.collathon.librarycnu.shared.data.network
 
+import OperationResponseModel
+import ReservationResponseModel
+import com.collathon.librarycnu.shared.data.model.ReservationModel
 import com.collathon.librarycnu.shared.data.model.SeatModel
 import com.collathon.librarycnu.shared.data.model.SeatResponseModel
 import io.ktor.client.*
@@ -17,8 +20,8 @@ import kotlinx.serialization.json.Json
 
 class SeatApi {
     // @TODO write your HOST, PORT
-    private val HOST: String = "122.32.102.102"
-    private val PORT: String = "46577"
+    private val HOST: String = ""
+    private val PORT: String = ""
 
     private val httpClient = HttpClient(CIO) {
         install(ContentNegotiation) {
@@ -39,7 +42,7 @@ class SeatApi {
         val response: HttpResponse = httpClient.get("http://$HOST:$PORT/get_all_seat_info")
 
         val responseSeatList = response.body<List<SeatResponseModel>>()
-        val seatModelList: ArrayList<SeatModel> = ArrayList()
+        val seatModelList: ArrayList<SeatModel> = ArrayList<SeatModel>()
 
         for (seat in responseSeatList) {
             seatModelList.add(SeatModel(
@@ -56,7 +59,7 @@ class SeatApi {
         return seatModelList.toList()
     }
 
-    suspend fun getSeatInfo(id: Int): SeatModel {
+    suspend fun getSeatInfo(id: Int, place: String?): SeatModel {
         val response: HttpResponse = httpClient.post("http://$HOST:$PORT/get_seat_info") {
             contentType(ContentType.Application.Json)
             setBody(RequestBody(id = id, place = null))
@@ -72,6 +75,48 @@ class SeatApi {
             responseSeat.endTime.toLocalDateTime(),
             responseSeat.canReserve,
             responseSeat.isFavorite
+        )
+    }
+
+    suspend fun reserveSeat(id: Int, place: String?): OperationResponseModel {
+        val response: HttpResponse = httpClient.post("http://$HOST:$PORT/reserve_seat") {
+            contentType(ContentType.Application.Json)
+            setBody(RequestBody(id = id, place = place))
+        }
+
+        return response.body()
+    }
+
+    suspend fun cancelSeat(id: Int, place: String?): OperationResponseModel {
+        val response: HttpResponse = httpClient.post("http://$HOST:$PORT/cancel_seat") {
+            contentType(ContentType.Application.Json)
+            setBody(RequestBody(id = id, place = place))
+        }
+
+        return response.body()
+    }
+
+    suspend fun extendSeat(id: Int, place: String?): OperationResponseModel {
+        val response: HttpResponse = httpClient.post("http://$HOST:$PORT/extend_seat") {
+            contentType(ContentType.Application.Json)
+            setBody(RequestBody(id = id, place = place))
+        }
+
+        return response.body()
+    }
+
+    suspend fun getReservationInfo(id: Int, place: String?): ReservationModel {
+        val response: HttpResponse = httpClient.post("http://$HOST:$PORT/get_reservation_info") {
+            contentType(ContentType.Application.Json)
+            setBody(RequestBody(id = id, place = place))
+        }
+
+        val responseReservation: ReservationResponseModel = response.body()
+
+        return ReservationModel(
+            responseReservation.startTime.toLocalDateTime(),
+            responseReservation.endTime.toLocalDateTime(),
+            responseReservation.canReserve
         )
     }
 }

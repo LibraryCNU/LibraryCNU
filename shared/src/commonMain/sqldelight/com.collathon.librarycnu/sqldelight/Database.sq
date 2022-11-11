@@ -1,27 +1,69 @@
 CREATE TABLE StudentTable (
-    id TEXT NOT NULL,
+    id TEXT NOT NULL PRIMARY KEY,
     password TEXT NOT NULL,
     studentId TEXT NOT NULL,
     department TEXT NOT NULL,
     name TEXT NOT NULL,
     isAttending TEXT NOT NULL,
-    session TEXT,
-    qrInfo TEXT
+    qr TEXT
 );
 
 CREATE TABLE SeatTable (
-    id TEXT NOT NULL,
+    id TEXT NOT NULL PRIMARY KEY,
     place TEXT NOT NULL,
+    plugExistence TEXT NOT NULL,
+    startTime TEXT NOT NULL,
+    endTime TEXT NOT NULL,
     canReserve INTEGER AS Boolean DEFAULT 0 NOT NULL,
     isFavorite INTEGER AS Boolean DEFAULT 0 NOT NULL
 );
 
 CREATE TABLE BookTable (
     author TEXT NOT NULL,
-    name TEXT NOT NULL,
+    name TEXT NOT NULL PRIMARY KEY,
     publish TEXT NOT NULL,
     isbn TEXT NOT NULL,
     language TEXT,
     picture TEXT,
     isFavorite INTEGER AS Boolean DEFAULT 0 NOT NULL
 );
+
+upsertStudent {
+  UPDATE StudentTable
+  SET id = :id, password = :password, studentId = :studentId, department = :department, name = :name, isAttending = :isAttending, qr = :qr
+  WHERE id = :id;
+
+  INSERT OR IGNORE INTO StudentTable (id, password, studentId, department, name, isAttending, qr)
+  VALUES(:id, :password, :studentId, :department, :name, :isAttending, :qr);
+}
+
+upsertSeat {
+  UPDATE SeatTable
+  SET id = :id, place = :place, plugExistence = :plugExistence, startTime = :startTime, endTime = :endTime, canReserve = :canReserve, isFavorite = :isFavorite
+  WHERE id = :id;
+
+  INSERT OR IGNORE INTO SeatTable (id, place, plugExistence, startTime, endTime, canReserve, isFavorite)
+  VALUES(:id, :place, :plugExistence, :startTime, :endTime, :canReserve, :isFavorite);
+}
+
+upsertBook {
+  UPDATE BookTable
+  SET author = :author, name = :name, publish = :publish, isbn = :isbn, language = :language, picture = :picture, isFavorite = :isFavorite
+  WHERE name = :name;
+
+  INSERT OR IGNORE INTO BookTable (author, name, publish, isbn, language, picture, isFavorite)
+  VALUES(:author, :name, :publish, :isbn, :language, :picture, :isFavorite);
+}
+
+selectStudent:
+SELECT *
+FROM StudentTable
+WHERE id;
+
+selectSeats:
+SELECT *
+FROM SeatTable;
+
+selectBooks:
+SELECT *
+FROM BookTable;

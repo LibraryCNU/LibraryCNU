@@ -6,8 +6,8 @@ import com.collathon.librarycnu.shared.domain.entity.Seat
 interface SeatRepository {
     suspend fun fetchAllSeatInfo(): List<Seat>
     suspend fun fetchSeatInfo(id: Int, place: String): Seat
-    suspend fun reserveSeat(session: String, id: Int, place: String): Boolean
-    suspend fun cancelSeat(session: String, id: Int, place: String): Boolean
-    suspend fun extendSeat(session: String, id: Int, place: String): Boolean
-    suspend fun fetchReservationInfo(session: String): ReservationInfo
+    suspend fun reserveSeat(id: Int, place: String): Boolean
+    suspend fun cancelSeat(id: Int, place: String): Boolean
+    suspend fun extendSeat(id: Int, place: String): Boolean
+    suspend fun fetchReservationInfo(id: Int, place: String): ReservationInfo
 }

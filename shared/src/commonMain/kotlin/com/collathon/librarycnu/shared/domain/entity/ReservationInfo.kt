@@ -1,11 +1,11 @@
 
 package com.collathon.librarycnu.shared.domain.entity
 
-import kotlinx.datetime.LocalTime
+import kotlinx.datetime.LocalDateTime
 
-data class ReservationInfo (  // @Todo fix this.
-    val startTime: LocalTime,
-    var endTime: LocalTime,
+data class ReservationInfo(  // @Todo fix this.
+    val startTime: LocalDateTime,
+    var endTime: LocalDateTime,
     val canReserve: Boolean,
 )
 

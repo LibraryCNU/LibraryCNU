@@ -21,5 +21,5 @@ data class StudentModel (  // @Todo fix serial name.
 //    @SerialName("session")
 //    val session: String,
     @SerialName("qr")
-    val qrInfo: String,
+    val qr: String,
 )
