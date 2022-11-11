@@ -155,12 +155,12 @@ fun BookNav(
 
 @Composable
 fun CheckoutService() {
-    val scrollState = rememberScrollState()
     Column(modifier = Modifier
-        .height(330.dp)
+        .height(360.dp)
         .width(350.dp)
         .clip(shape = RoundedCornerShape(20.dp))
         .background(Color.White),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(
             modifier = Modifier
@@ -184,7 +184,9 @@ fun CheckoutService() {
                 .height(0.4.dp)
                 .fillMaxWidth()
         )
-        LazyColumn {
+        LazyColumn(
+            modifier = Modifier.height(250.dp)
+        ) {
             itemsIndexed(
                 listOf(
                     BookInfoModel(1, "컴파일러", "박두순", "2022-10-17"),
@@ -202,6 +204,23 @@ fun CheckoutService() {
             ) { index, item ->
                 BookInfo(item.id, item.name, item.author, item.date)
             }
+        }
+        Button(
+            onClick = { /*TODO*/ },
+            modifier = Modifier
+                .height(50.dp)
+                .fillMaxWidth()
+                .padding(horizontal = 10.dp),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color(0xFF1771B6)
+            ),
+            elevation = null,
+            shape = RoundedCornerShape(15.dp),
+        ) {
+            Text(
+                text = "대출 연장",
+                color = Color.White
+            )
         }
     }
 }
@@ -302,7 +321,8 @@ fun BookNavButton(
 ) {
     val alpha = if (bookState.value == bookServiceScreen) 0.3F else 0F
 
-    Button(modifier = Modifier.height(32.dp),
+    Button(
+        modifier = Modifier.height(32.dp),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = Color.White.copy(
                 alpha = alpha,
