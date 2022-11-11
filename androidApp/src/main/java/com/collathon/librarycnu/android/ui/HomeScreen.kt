@@ -27,13 +27,15 @@ fun HomeScreen(                 // 여기서 Body 부분 코딩
             .fillMaxWidth()
         val dest1 = LibScreens.BookService.title
         val dest2 = LibScreens.Home.title
+        val blue_theme = listOf<Color>(Color(0xFF27608B), Color.White, Color.White)
+        val white_theme = listOf<Color>(Color.White, Color.Black, Color.LightGray)
 
         StudentInfoBar(modifierRow)
         MyLibraryBar(navController, modifierRow)
 
         FirstRowField(navController, modifierRow)
-        SecondRowField(navController, dest2, modifierRow)
-        SecondRowField(navController, dest1, modifierRow)
+        SecondRowField(navController, dest2, modifierRow, blue_theme)
+        SecondRowField(navController, dest1, modifierRow, white_theme)
         ThirdRowField(navController, modifierRow)
     }
 }
@@ -78,13 +80,14 @@ fun FirstRowField(navController: NavController, modifier: Modifier) {
 fun SecondRowField(
     navController: NavController,
     dest : String,
-    modifier: Modifier
+    modifier: Modifier,
+    theme : List<Color>
 ) {
     Row(
         modifier,
         horizontalArrangement = Arrangement.Center
     ) {
-        HomeMenuBlock3Row(navController, dest)
+        HomeMenuBlock3Row(navController, dest, theme)
     }
 }
 
