@@ -22,6 +22,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.collathon.librarycnu.Greeting
+import com.collathon.librarycnu.android.ui.components.ProgressBarAnimated
 import com.collathon.librarycnu.shared.SDKForAndroid
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
@@ -69,12 +70,12 @@ fun MyApplicationTheme(
     )
 }
 
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MainApp()
         }
-
     }
 }
