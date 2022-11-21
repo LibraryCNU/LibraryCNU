@@ -10,6 +10,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.collathon.librarycnu.android.LibScreens
 import com.collathon.librarycnu.android.ui.components.*
+import com.collathon.librarycnu.shared.SDKForAndroid
 
 //todo : fill the composables
 
@@ -19,18 +20,19 @@ fun HomeScreen(                 // 여기서 Body 부분 코딩
         .background(Color(0xFFE7EAF0))
         .fillMaxSize(),
     navController: NavController,
-    verticalArrangement: Arrangement.HorizontalOrVertical = Arrangement.Center,
-    horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
+    sdk : SDKForAndroid,
+    //verticalArrangement: Arrangement.HorizontalOrVertical = Arrangement.Center,
+    //horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
 ) {
     Column(modifier = modifier) {
         val modifierRow = Modifier
             .fillMaxWidth()
         val dest1 = LibScreens.BookService.title
-        val dest2 = LibScreens.Home.title
+        val dest2 = LibScreens.ReserveSeat.title
         val blue_theme = listOf<Color>(Color(0xFF27608B), Color.White, Color.White)
         val white_theme = listOf<Color>(Color.White, Color.Black, Color.LightGray)
 
-        StudentInfoBar(modifierRow)
+        StudentInfoBar(modifierRow, sdk)
         MyLibraryBar(navController, modifierRow)
 
         FirstRowField(navController, modifierRow)
@@ -41,7 +43,7 @@ fun HomeScreen(                 // 여기서 Body 부분 코딩
 }
 
 
-
+/*
 @Composable
 fun StudentInfoBar(modifier: Modifier) {
     Row (modifier) {
@@ -54,6 +56,8 @@ fun StudentInfoBar(modifier: Modifier) {
         }
     }
 }
+
+*/
 
 @Composable
 fun MyLibraryBar(navController: NavController, modifier: Modifier) {

@@ -26,7 +26,7 @@ import com.collathon.librarycnu.android.ui.MyLibraryScreen
 import com.collathon.librarycnu.android.ui.RenewBooksScreen
 import com.collathon.librarycnu.android.ui.BookServiceScreen
 import com.collathon.librarycnu.android.ui.FindBooksScreen
-
+import com.collathon.librarycnu.shared.SDKForAndroid
 
 
 // todo : fill the Screen Class
@@ -43,6 +43,7 @@ enum class LibScreens(val title: String) {
 @Preview
 @Composable
 fun MainApp(
+    sdk : SDKForAndroid,
     modifier: Modifier = Modifier.fillMaxSize()
 ) {
     var navController = rememberNavController()
@@ -56,7 +57,7 @@ fun MainApp(
         ) {
             // todo : fill the composable
             composable(LibScreens.Home.title) {
-                HomeScreen (navController = navController)
+                HomeScreen (navController = navController, sdk = sdk)
             }
             composable(LibScreens.ReserveSeat.title) {
                 ReserveSeatScreen(

@@ -19,6 +19,9 @@ import androidx.navigation.compose.rememberNavController
 import com.collathon.librarycnu.Greeting
 import com.collathon.librarycnu.android.ui.components.ProgressBarAnimated
 import com.collathon.librarycnu.shared.SDKForAndroid
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
@@ -65,12 +68,26 @@ fun MyApplicationTheme(
     )
 }
 
+val SDKModule = module {
+    single<SDKForAndroid> { SDKForAndroid(get()) }
+}
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        startKoin{
+            androidLogger()
+            androidContext(this@MainActivity)
+            modules(SDKModule)
+        }
+
+        // IO는 쓰레드임
+        val librarySdk: SDKForAndroid by inject()
+
         setContent {
-            MainApp()
+            MainApp(librarySdk)
         }
     }
 }

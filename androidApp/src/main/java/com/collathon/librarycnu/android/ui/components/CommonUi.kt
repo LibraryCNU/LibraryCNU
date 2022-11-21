@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.*
 import androidx.navigation.NavController
@@ -68,7 +69,7 @@ fun BlockTitleText(contents : String) {
 }
 
 @Composable
-fun SubTitleText(contents : String, color : Color) {
+fun SubTitleText(contents : String, color : Color = Color.Black) {
     Text(
         contents,
         fontSize = 16.sp,
@@ -330,7 +331,11 @@ fun StatusBarBlue(
         }
 
     }
-    StatusBarTextInfo(theme)
+
+    val titleText = "2층 제 1열람실 A :168"
+    val subtitleText = "배정시간 : 18:51 ~ 22:51"
+
+    StatusBarTextInfo(theme, titleText, subtitleText)
 }
 
 @Composable
@@ -359,15 +364,20 @@ fun StatusBarWhite(
         }
 
     }
-    StatusBarTextInfo(theme)
+
+    val titleText = "도서 대출 기록"
+    val subtitleText = "대여 기간 : 11/10 ~ 11/20"
+
+    StatusBarTextInfo(theme, titleText, subtitleText)
 }
 
 
 @Composable
-fun StatusBarTextInfo(theme: List<Color>) {
-    val titleText = "2층 제 1열람실 A :168"
-    val subtitleText = "배정시간 : 18:51 ~ 22:51"
-
+fun StatusBarTextInfo(
+    theme: List<Color>,
+    titleText : String,
+    subtitleText : String
+) {
     // 열람실 텍스트 정보
     Spacer(modifier = Modifier.width(20.dp))
     Column() {
@@ -510,7 +520,7 @@ fun BracketTopStart(modifier: Modifier) {
     }
 }
 
-
+/*
 // todo : student info import
 @Composable
 fun StudentInfoField( modifier: Modifier) {
@@ -526,8 +536,8 @@ fun StudentInfoField( modifier: Modifier) {
         SubTitleText(contents = "공과대학 컴퓨터융합학부", Color(0xFF777777))
     }
 }
-
-
+*/
+/*
 @Composable
 fun StudentStatusBar( modifier: Modifier ) {
     Card(
@@ -545,3 +555,4 @@ fun StudentStatusBar( modifier: Modifier ) {
             color = Color(0xFF777777))
     }
 }
+ */
