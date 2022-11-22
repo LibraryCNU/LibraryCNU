@@ -40,7 +40,6 @@ enum class LibScreens(val title: String) {
 }
 
 
-@Preview
 @Composable
 fun MainApp(
     sdk : SDKForAndroid,

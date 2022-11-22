@@ -1,5 +1,5 @@
 package com.collathon.librarycnu.android.ui.components
-
+import android.widget.Button
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
@@ -11,9 +11,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.material.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Menu
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -29,6 +35,8 @@ import androidx.navigation.NavController
 import com.collathon.librarycnu.android.LibScreens
 import com.collathon.librarycnu.android.R
 import com.collathon.librarycnu.shared.domain.entity.Student
+import kotlinx.coroutines.launch
+
 
 // todo : A collection of commonly used components
 /* Common */
@@ -387,6 +395,7 @@ fun StatusBarTextInfo(
     }
 }
 
+@Preview
 @Composable
 fun StudentQR(
 ) {
@@ -395,46 +404,108 @@ fun StudentQR(
             .padding(8.dp)
     ) {
         val colors = listOf(Color(0xFF1DA1BB), Color(0xFF0566A3))
+
         Row(
             modifier = Modifier
                 .width(224.dp)
                 .height(236.dp)
                 .clip(shape = RoundedCornerShape(15.dp))
                 .background(
-                    brush = Brush.linearGradient(
-                        colors = colors,
-                        start = Offset.Zero,
-                        end = Offset.Infinite
-                    ),
+                    brush = Brush.linearGradient(colors)
                 )
+
         ) {
-            Box(
-                modifier = Modifier.fillMaxSize()
+            var isQRMode = remember { mutableStateOf(true) }
+            ChangeMode(
+                show = isQRMode
             ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.qr),
-                    contentDescription = "menu",
-                    tint = Color.White,
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .size(156.dp)
-                    )
-                ExtraText(text = "C N U", modifier = Modifier.align(Alignment.TopCenter))
-                BracketTopStart(Modifier.align(Alignment.TopStart) )
-                BracketTopStart(
-                    Modifier
-                        .align(Alignment.TopEnd)
-                        .rotate(90f))
-                BracketTopStart(
-                    Modifier
-                        .align(Alignment.BottomStart)
-                        .rotate(270f))
-                BracketTopStart(
-                    Modifier
-                        .align(Alignment.BottomEnd)
-                        .rotate(180f))
+                isQRMode.value = !isQRMode.value
             }
+            //QRMode()
         }
+    }
+
+}
+
+
+@Composable
+fun ChangeMode(
+    show : MutableState<Boolean>,
+    updateVisibility : () -> Unit
+){
+    Button(
+        modifier = Modifier
+            .fillMaxSize()
+            .shadow(0.dp),
+        onClick = { updateVisibility()},
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = Color.Transparent //Color.DarkGray
+        ),
+        contentPadding = PaddingValues(all=0.dp)
+    ) {
+        if (show.value) {
+            QRMode()
+        } else {
+            NFCMode()
+        }
+    }
+}
+
+@Preview
+@Composable
+fun QRMode() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.qr),
+            contentDescription = "menu",
+            tint = Color.White,
+            modifier = Modifier
+                .align(Alignment.Center)
+                .size(156.dp)
+        )
+        ExtraText(text = "C N U", modifier = Modifier.align(Alignment.TopCenter))
+        BracketTopStart(Modifier.align(Alignment.TopStart) )
+        BracketTopStart(
+            Modifier
+                .align(Alignment.TopEnd)
+                .rotate(90f))
+        BracketTopStart(
+            Modifier
+                .align(Alignment.BottomStart)
+                .rotate(270f))
+        BracketTopStart(
+            Modifier
+                .align(Alignment.BottomEnd)
+                .rotate(180f))
+    }
+}
+@Preview
+@Composable
+fun NFCMode() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+
+        WaveAnimation()
+        ExtraText(text = "N F C", modifier = Modifier.align(Alignment.TopCenter))
+
+        BracketTopStart(Modifier.align(Alignment.TopStart) )
+        BracketTopStart(
+            Modifier
+                .align(Alignment.TopEnd)
+                .rotate(90f))
+        BracketTopStart(
+            Modifier
+                .align(Alignment.BottomStart)
+                .rotate(270f))
+        BracketTopStart(
+            Modifier
+                .align(Alignment.BottomEnd)
+                .rotate(180f))
     }
 }
 
@@ -520,39 +591,3 @@ fun BracketTopStart(modifier: Modifier) {
     }
 }
 
-/*
-// todo : student info import
-@Composable
-fun StudentInfoField( modifier: Modifier) {
-    Column(modifier) {
-        Row {
-            TitleText(contents = "김충남", Color.Black)
-            Spacer(modifier = Modifier.width(10.dp))
-            SubTitleText(contents = "Kim Chungnam", Color(0xFF777777))
-        }
-        Spacer(modifier = Modifier.height(2.dp))
-        SubTitleText(contents = "202002488", Color(0xFF777777))
-        Spacer(modifier = Modifier.height(2.dp))
-        SubTitleText(contents = "공과대학 컴퓨터융합학부", Color(0xFF777777))
-    }
-}
-*/
-/*
-@Composable
-fun StudentStatusBar( modifier: Modifier ) {
-    Card(
-        shape = RoundedCornerShape(20.dp),
-        elevation = 0.dp,
-        backgroundColor = Color(0xFFE7EAF0),
-        modifier = modifier,
-        border = BorderStroke(0.4.dp, Color.LightGray),
-    )
-    {
-        Text(text = "재학중",
-            modifier = Modifier.padding(horizontal = 22.dp, vertical = 8.dp),
-            fontSize = 16.sp,
-            fontWeight = FontWeight.SemiBold,
-            color = Color(0xFF777777))
-    }
-}
- */
