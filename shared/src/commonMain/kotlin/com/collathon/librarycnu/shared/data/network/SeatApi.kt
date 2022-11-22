@@ -1,4 +1,3 @@
-
 package com.collathon.librarycnu.shared.data.network
 
 import OperationResponseModel

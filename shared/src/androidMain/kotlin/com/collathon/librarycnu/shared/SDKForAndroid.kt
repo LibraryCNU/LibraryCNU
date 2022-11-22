@@ -2,6 +2,8 @@ package com.collathon.librarycnu.shared
 
 import android.content.Context
 import com.collathon.librarycnu.shared.di.createKoinApp
+import com.collathon.librarycnu.shared.domain.usecase.demo.SetReserveSeatLEDUseCase
+import com.collathon.librarycnu.shared.domain.usecase.demo.SetSearchBookLEDUseCase
 import com.collathon.librarycnu.shared.domain.usecase.seat.*
 import com.collathon.librarycnu.shared.domain.usecase.student.GetStudentInfoUseCase
 import com.collathon.librarycnu.shared.domain.usecase.student.LoginUseCase
@@ -24,6 +26,10 @@ class SDKForAndroid(context: Context) {
     private val cancelSeatUseCase: CancelSeatUseCase = koinApp.koin.get()
     private val extendSeatUseCase: ExtendSeatUseCase = koinApp.koin.get()
 
+    // Demo UseCase
+    private val setReserveSeatLEDUseCase: SetReserveSeatLEDUseCase = koinApp.koin.get()
+    private val setSearchBookLEDUseCase: SetSearchBookLEDUseCase = koinApp.koin.get()
+
     fun getStudentInfoUseCase(): GetStudentInfoUseCase = getStudentInfoUseCase
     fun loginUseCase(): LoginUseCase = loginUseCase
     fun logoutUseCase(): LogoutUseCase = logoutUseCase
@@ -34,4 +40,7 @@ class SDKForAndroid(context: Context) {
     fun reserveSeatUseCase(): ReserveSeatUseCase = reserveSeatUseCase
     fun cancelSeatUseCase(): CancelSeatUseCase = cancelSeatUseCase
     fun extendSeatUseCase(): ExtendSeatUseCase = extendSeatUseCase
+
+    fun setReserveSeatLEDUseCase(): SetReserveSeatLEDUseCase = setReserveSeatLEDUseCase
+    fun setSearchBookLEDUseCase(): SetSearchBookLEDUseCase = setSearchBookLEDUseCase
 }
