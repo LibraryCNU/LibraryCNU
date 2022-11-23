@@ -8,10 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,6 +21,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.collathon.librarycnu.android.R
+import com.collathon.librarycnu.shared.SDKForAndroid
+import kotlinx.coroutines.launch
 
 /*
 * 도서 서비스를 전체적으로 담당하는 ui
@@ -42,9 +41,9 @@ data class BookInfoModel(
     val date: String
 )
 
-@Preview
 @Composable
 fun BookServiceScreen(
+    sdk: SDKForAndroid,
     modifier: Modifier = Modifier,
     verticalArrangement: Arrangement.HorizontalOrVertical = Arrangement.Center,
     horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally
@@ -62,7 +61,7 @@ fun BookServiceScreen(
             .height(350.dp)
         ) {
             BackgroundGradation(bookState)
-            BookPreView(bookState, boxModifier = Modifier
+            BookPreView(sdk = sdk, bookState, boxModifier = Modifier
                 .align(Alignment.BottomCenter))
         }
         FindBookButton()
@@ -97,6 +96,7 @@ fun BackgroundGradation(
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun BookPreView(
+    sdk: SDKForAndroid,
     bookState: MutableState<BookServiceScreen>,
     boxModifier: Modifier
 ) {
@@ -106,6 +106,8 @@ fun BookPreView(
         painterResource(R.drawable.learning_javascript),
         painterResource(R.drawable.sapiens)
     )
+
+    val composableScope = rememberCoroutineScope()
 
     Box(modifier = boxModifier) {
         val width = 96.dp
@@ -126,6 +128,14 @@ fun BookPreView(
                     thresholds = { _, _ -> FractionalThreshold(0.3f) },
                     orientation = Orientation.Horizontal
                 )
+                .clickable {
+                    val setSearchBookLED: () -> Unit = {
+                        composableScope.launch {
+                            sdk.setSearchBookLEDUseCase().execute()
+                        }
+                    }
+                    setSearchBookLED()
+                }
         )
     }
 }

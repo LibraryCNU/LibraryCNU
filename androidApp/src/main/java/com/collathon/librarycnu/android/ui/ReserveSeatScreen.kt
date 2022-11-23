@@ -2,6 +2,7 @@ package com.collathon.librarycnu.android.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -11,10 +12,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,7 +23,9 @@ import androidx.compose.ui.unit.sp
 import com.collathon.librarycnu.android.R
 import com.collathon.librarycnu.android.ui.components.BlockTitleText
 import com.collathon.librarycnu.android.ui.components.SubTitleText
+import com.collathon.librarycnu.shared.SDKForAndroid
 import com.collathon.librarycnu.shared.domain.entity.Seat
+import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDateTime
 
 /*
@@ -35,6 +35,7 @@ import kotlinx.datetime.LocalDateTime
 @Preview
 @Composable
 fun ReserveSeatScreen(
+    sdk: SDKForAndroid,
     modifier: Modifier = Modifier.fillMaxSize(),
     verticalArrangement: Arrangement.HorizontalOrVertical = Arrangement.Center,
     horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally
@@ -56,8 +57,8 @@ fun ReserveSeatScreen(
         ReservemenuBlock1()
         ReserveSeatImage()
         SearchBlock(changeViewMode, changeViewIcon)
-        if (changeViewMode.value) ColList()
-        else GridList()
+        if (changeViewMode.value) ColList(sdk)
+        else GridList(sdk)
     }
 }
 
@@ -188,7 +189,6 @@ fun SearchBlock(
                 elevation = null,
                 onClick = {
                     changeViewMode.value = !changeViewMode.value
-                    changeViewIcon.value = !changeViewIcon.value
                 }
             ) {
                 if (changeViewIcon.value) {
@@ -215,7 +215,7 @@ fun SearchBlock(
 }
 
 @Composable
-fun ColList() {
+fun ColList(sdk: SDKForAndroid) {
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
@@ -234,13 +234,13 @@ fun ColList() {
                 Seat(9, "Creator Room", true, LocalDateTime.parse("2022-01-01T21:00:00"), LocalDateTime.parse("2022-01-01T21:00:00"), true, true),
                 )
         ) {index, item ->
-            ColItemCard(item)
+            ColItemCard(sdk, item)
         }
     }
 }
 
 @Composable
-fun GridList() { // 그리드뷰
+fun GridList(sdk: SDKForAndroid) { // 그리드뷰
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
@@ -276,7 +276,7 @@ fun GridList() { // 그리드뷰
 
                 )
         ) {index, item ->
-            GridItemCard(item)
+            GridItemCard(sdk, item)
         }
         }
     }
@@ -296,11 +296,20 @@ fun Seat1(
 }
 
 @Composable
-fun ColItemCard(data: Seat) {
+fun ColItemCard(sdk: SDKForAndroid, data: Seat) {
+    val composableScope = rememberCoroutineScope()
     Card(
         modifier = Modifier
             .padding(end = 10.dp)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clickable {
+                val setReserveSeatLED: () -> Unit = {
+                    composableScope.launch {
+                        sdk.setReserveSeatLEDUseCase().execute()
+                    }
+                }
+                setReserveSeatLED()
+            },
         shape = MaterialTheme.shapes.small.copy(CornerSize(10.dp)),
         elevation = 10.dp
     ) {
@@ -315,11 +324,20 @@ fun ColItemCard(data: Seat) {
 }
 
 @Composable
-fun GridItemCard(data: Seat) {
+fun GridItemCard(sdk: SDKForAndroid, data: Seat) {
+    val composableScope = rememberCoroutineScope()
     Card(
         modifier = Modifier
             .fillMaxHeight()
-            .height(80.dp),
+            .height(80.dp)
+            .clickable {
+                val setReserveSeatLED: () -> Unit = {
+                    composableScope.launch {
+                        sdk.setReserveSeatLEDUseCase().execute()
+                    }
+                }
+                setReserveSeatLED()
+            },
         shape = MaterialTheme.shapes.small.copy(CornerSize(10.dp)),
         elevation = 10.dp
     ) {

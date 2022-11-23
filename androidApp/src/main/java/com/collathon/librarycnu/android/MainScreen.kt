@@ -60,11 +60,13 @@ fun MainApp(
             }
             composable(LibScreens.ReserveSeat.title) {
                 ReserveSeatScreen(
+                    sdk = sdk
                     //navController = navController
                 )
             }
             composable(LibScreens.BookService.title) {
                 BookServiceScreen(
+                    sdk = sdk
                     //navController = navController
                 )
             }
