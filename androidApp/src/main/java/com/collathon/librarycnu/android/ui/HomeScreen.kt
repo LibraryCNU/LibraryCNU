@@ -3,10 +3,8 @@ package com.collathon.librarycnu.android.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.collathon.librarycnu.android.LibScreens
 import com.collathon.librarycnu.android.ui.components.*
@@ -43,21 +41,7 @@ fun HomeScreen(                 // 여기서 Body 부분 코딩
 }
 
 
-/*
-@Composable
-fun StudentInfoBar(modifier: Modifier) {
-    Row (modifier) {
-        Box(
-            modifier
-                .padding(horizontal = 30.dp, vertical = 15.dp)
-        ) {
-            StudentInfoField(Modifier.align(Alignment.TopStart))
-            StudentStatusBar(Modifier.align(Alignment.TopEnd))
-        }
-    }
-}
 
-*/
 
 @Composable
 fun MyLibraryBar(navController: NavController, modifier: Modifier) {

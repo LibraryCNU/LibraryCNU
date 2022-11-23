@@ -7,8 +7,11 @@ import com.collathon.librarycnu.shared.data.storage.Database
 import com.collathon.librarycnu.shared.data.storage.SeatLocalDataSource
 import com.collathon.librarycnu.shared.data.storage.StudentLocalDataSource
 import com.collathon.librarycnu.shared.domain.repository.BookRepository
+import com.collathon.librarycnu.shared.domain.repository.DemoRepository
 import com.collathon.librarycnu.shared.domain.repository.SeatRepository
 import com.collathon.librarycnu.shared.domain.repository.StudentRepository
+import com.collathon.librarycnu.shared.domain.usecase.demo.SetReserveSeatLEDUseCase
+import com.collathon.librarycnu.shared.domain.usecase.demo.SetSearchBookLEDUseCase
 import com.collathon.librarycnu.shared.domain.usecase.seat.*
 import com.collathon.librarycnu.shared.domain.usecase.student.GetStudentInfoUseCase
 import com.collathon.librarycnu.shared.domain.usecase.student.LoginUseCase
@@ -37,17 +40,24 @@ val libraryModule = module {
             get(qualifier = named("BookRemote"))
         )
     }
+    single<DemoRepository> {
+        DemoRepositoryImpl(
+            get(qualifier = named("DemoRemote")),
+        )
+    }
     factory<StudentDataSource>(named("StudentLocal")) { StudentLocalDataSource(get()) }
     factory<StudentDataSource>(named("StudentRemote")) { StudentRemoteDataSource(get()) }
     factory<SeatDataSource>(named("SeatLocal")) { SeatLocalDataSource(get()) }
     factory<SeatDataSource>(named("SeatRemote")) { SeatRemoteDataSource(get()) }
     factory<BookDataSource>(named("BookLocal")) { BookLocalDataSource(get()) }
     factory<BookDataSource>(named("BookRemote")) { BookRemoteDataSource(get()) }
+    factory<DemoDataSource>(named("DemoRemote")) { DemoRemoteDataSource(get()) }
 
     single<Database> { Database(get()) }
     factory<StudentApi> { StudentApi() }
     factory<SeatApi> { SeatApi() }
     factory<BookApi> { BookApi() }
+    factory<DemoApi> { DemoApi() }
 
     // Student UseCase
     factory<GetStudentInfoUseCase> { GetStudentInfoUseCase(get()) }
@@ -62,7 +72,9 @@ val libraryModule = module {
     factory<CancelSeatUseCase> { CancelSeatUseCase(get()) }
     factory<ExtendSeatUseCase> { ExtendSeatUseCase(get()) }
 
-
+    // Demo UseCase
+    factory<SetReserveSeatLEDUseCase> { SetReserveSeatLEDUseCase(get()) }
+    factory<SetSearchBookLEDUseCase> { SetSearchBookLEDUseCase(get()) }
 
 }
 
